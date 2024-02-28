@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BD_TAREASModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tareas">
+    <Key>
+      <PropertyRef Name="id_tarea" />
+    </Key>
+    <Property Name="id_tarea" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_usuario" Type="int" Nullable="false" />
+    <Property Name="titulo" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="descripcion" Type="nvarchar(max)" />
+    <Property Name="fecha_vencimiento" Type="date" />
+    <Property Name="estado" Type="nvarchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="usuarios">
+    <Key>
+      <PropertyRef Name="id_usuario" />
+    </Key>
+    <Property Name="id_usuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre_usuario" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="password_hash" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__tareas__id_usuar__267ABA7A">
+    <End Role="usuarios" Type="Self.usuarios" Multiplicity="1" />
+    <End Role="tareas" Type="Self.tareas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="usuarios">
+        <PropertyRef Name="id_usuario" />
+      </Principal>
+      <Dependent Role="tareas">
+        <PropertyRef Name="id_usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_id_usuario">
+    <End Role="usuarios" Type="Self.usuarios" Multiplicity="1" />
+    <End Role="tareas" Type="Self.tareas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="usuarios">
+        <PropertyRef Name="id_usuario" />
+      </Principal>
+      <Dependent Role="tareas">
+        <PropertyRef Name="id_usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BD_TAREASModelStoreContainer">
+    <EntitySet Name="tareas" EntityType="Self.tareas" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="usuarios" EntityType="Self.usuarios" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__tareas__id_usuar__267ABA7A" Association="Self.FK__tareas__id_usuar__267ABA7A">
+      <End Role="usuarios" EntitySet="usuarios" />
+      <End Role="tareas" EntitySet="tareas" />
+    </AssociationSet>
+    <AssociationSet Name="fk_id_usuario" Association="Self.fk_id_usuario">
+      <End Role="usuarios" EntitySet="usuarios" />
+      <End Role="tareas" EntitySet="tareas" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
